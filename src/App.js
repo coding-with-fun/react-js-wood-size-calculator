@@ -67,14 +67,16 @@ const App = () => {
                     valuesCopy[index].details[innerIndex][e.target.name] =
                         e.target.value;
                     if (
-                        !valuesCopy[index].details[innerIndex].lengthValue &&
-                        !valuesCopy[index].details[innerIndex].number
+                        (!valuesCopy[index].details[innerIndex].lengthValue ||
+                            !valuesCopy[index].details[innerIndex].number) &&
+                        innerIndex !== valuesCopy[index].details.length - 1
                     ) {
+                        console.log("object");
                         valuesCopy = handleRemoveInnerInputs(valuesCopy, index);
                     }
                 } else {
                     valuesCopy[index][e.target.name] = e.target.value;
-                    if (!valuesCopy[index].height && !valuesCopy[index].width) {
+                    if (!valuesCopy[index].height || !valuesCopy[index].width) {
                         valuesCopy = handleRemoveInnerInputs(valuesCopy, index);
                     }
                 }
