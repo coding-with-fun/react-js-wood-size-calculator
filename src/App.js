@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Container, Row } from "react-bootstrap";
+import validator from "validator";
+import InputScreen from "./components/InputScreen";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const initialOuterState = [
+        {
+            height: "",
+            width: "",
+            details: [],
+        },
+    ];
+    const initialInnerState = {
+        length: "",
+        number: "",
+    };
+    const [userData, setUserData] = useState(initialOuterState);
+
+    const handleAddRemoveInnerInputs = (valuesCopy, index) => {
+        let localCopy = [...valuesCopy];
+        localCopy[index].details.push(initialInnerState);
+        console.log(localCopy);
+        return localCopy;
+    };
+
+    const handleInputValues = (e, index, innerIndex) => {
+        let valuesCopy = [...userData];
+
+        if (
+            validator.isDecimal(e.target.value, {
+                decimal_digits: "1,2",
+            })
+        ) {
+            if (innerIndex) {
+                valuesCopy = handleAddRemoveInnerInputs(valuesCopy, index);
+                valuesCopy[index].details[innerIndex][e.target.name] =
+                    e.target.value;
+            } else {
+                valuesCopy = handleAddRemoveInnerInputs(valuesCopy, index);
+                valuesCopy[index][e.target.name] = e.target.value;
+            }
+            setUserData(valuesCopy);
+        }
+    };
+
+    return (
+        <Container>
+            <Row className="justify-content-center">
+                <InputScreen
+                    userData={userData}
+                    handleInputValues={handleInputValues}
+                />
+            </Row>
+        </Container>
+    );
+};
 
 export default App;
