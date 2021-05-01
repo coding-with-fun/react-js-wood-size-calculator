@@ -45,11 +45,11 @@ const InputScreen = ({ userData, handleInputValues }) => {
                                             <Col className="d-flex justify-content-center">
                                                 <TextField
                                                     label="Length"
-                                                    name="length"
+                                                    name="lengthValue"
                                                     variant="outlined"
                                                     size="small"
                                                     type="number"
-                                                    value={details.length}
+                                                    value={details.lengthValue}
                                                     onChange={(e) =>
                                                         handleInputValues(
                                                             e,

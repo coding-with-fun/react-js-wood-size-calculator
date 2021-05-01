@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Row } from "react-bootstrap";
 import validator from "validator";
 import InputScreen from "./components/InputScreen";
+import lodash from "lodash";
 
 const App = () => {
     const initialOuterState = [
@@ -12,15 +13,20 @@ const App = () => {
         },
     ];
     const initialInnerState = {
-        length: "",
+        lengthValue: "",
         number: "",
     };
     const [userData, setUserData] = useState(initialOuterState);
 
-    const handleAddRemoveInnerInputs = (valuesCopy, index) => {
+    const handleRemoveInnerInputs = (valuesCopy, index) => {
+        let localCopy = [...valuesCopy];
+        localCopy[index].details.pop();
+        return localCopy;
+    };
+
+    const handleAddInnerInputs = (valuesCopy, index) => {
         let localCopy = [...valuesCopy];
         localCopy[index].details.push(initialInnerState);
-        console.log(localCopy);
         return localCopy;
     };
 
@@ -32,16 +38,49 @@ const App = () => {
                 decimal_digits: "1,2",
             })
         ) {
-            if (innerIndex) {
-                valuesCopy = handleAddRemoveInnerInputs(valuesCopy, index);
+            if (innerIndex + 1) {
                 valuesCopy[index].details[innerIndex][e.target.name] =
                     e.target.value;
+                if (
+                    lodash.last(valuesCopy[index].details).lengthValue &&
+                    lodash.last(valuesCopy[index].details).number &&
+                    valuesCopy[index].height &&
+                    valuesCopy[index].width
+                ) {
+                    valuesCopy = handleAddInnerInputs(valuesCopy, index);
+                }
             } else {
-                valuesCopy = handleAddRemoveInnerInputs(valuesCopy, index);
                 valuesCopy[index][e.target.name] = e.target.value;
+                if (
+                    valuesCopy[index].height &&
+                    valuesCopy[index].width &&
+                    ((lodash.last(valuesCopy[index].details)?.lengthValue &&
+                        lodash.last(valuesCopy[index].details)?.number) ||
+                        valuesCopy[index].details.length < 1)
+                ) {
+                    valuesCopy = handleAddInnerInputs(valuesCopy, index);
+                }
             }
-            setUserData(valuesCopy);
+        } else {
+            if (lodash.isEmpty(e.target.value)) {
+                if (innerIndex + 1) {
+                    valuesCopy[index].details[innerIndex][e.target.name] =
+                        e.target.value;
+                    if (
+                        !valuesCopy[index].details[innerIndex].lengthValue &&
+                        !valuesCopy[index].details[innerIndex].number
+                    ) {
+                        valuesCopy = handleRemoveInnerInputs(valuesCopy, index);
+                    }
+                } else {
+                    valuesCopy[index][e.target.name] = e.target.value;
+                    if (!valuesCopy[index].height && !valuesCopy[index].width) {
+                        valuesCopy = handleRemoveInnerInputs(valuesCopy, index);
+                    }
+                }
+            }
         }
+        setUserData(valuesCopy);
     };
 
     return (
