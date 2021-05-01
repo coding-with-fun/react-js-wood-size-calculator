@@ -5,18 +5,28 @@ import InputScreen from "./components/InputScreen";
 import lodash from "lodash";
 
 const App = () => {
-    const initialOuterState = [
-        {
-            height: "",
-            width: "",
-            details: [],
-        },
-    ];
+    const initialOuterState = {
+        height: "",
+        width: "",
+        details: [],
+    };
     const initialInnerState = {
         lengthValue: "",
         number: "",
     };
-    const [userData, setUserData] = useState(initialOuterState);
+    const [userData, setUserData] = useState([initialOuterState]);
+
+    const handleRemoveOuterInputs = (valuesCopy) => {
+        let localCopy = [...valuesCopy];
+        localCopy.pop();
+        return localCopy;
+    };
+
+    const handleAddOuterInputs = (valuesCopy) => {
+        let localCopy = [...valuesCopy];
+        localCopy.push(initialOuterState);
+        return localCopy;
+    };
 
     const handleRemoveInnerInputs = (valuesCopy, index) => {
         let localCopy = [...valuesCopy];
@@ -48,6 +58,13 @@ const App = () => {
                     valuesCopy[index].width
                 ) {
                     valuesCopy = handleAddInnerInputs(valuesCopy, index);
+
+                    if (
+                        lodash.last(valuesCopy).height &&
+                        lodash.last(valuesCopy).width
+                    ) {
+                        valuesCopy = handleAddOuterInputs(valuesCopy);
+                    }
                 }
             } else {
                 valuesCopy[index][e.target.name] = e.target.value;
@@ -71,8 +88,8 @@ const App = () => {
                             !valuesCopy[index].details[innerIndex].number) &&
                         innerIndex !== valuesCopy[index].details.length - 1
                     ) {
-                        console.log("object");
                         valuesCopy = handleRemoveInnerInputs(valuesCopy, index);
+                        valuesCopy = handleRemoveOuterInputs(valuesCopy);
                     }
                 } else {
                     valuesCopy[index][e.target.name] = e.target.value;

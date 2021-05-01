@@ -4,14 +4,13 @@ import { Col, Row } from "react-bootstrap";
 
 const InputScreen = ({ userData, handleInputValues }) => {
     return (
-        <Col xl={6} className="mt-4">
+        <Col xl={6}>
             {userData.map((data, index) => {
                 return (
                     <Fragment key={index}>
-                        <Row>
+                        <Row className="mt-3">
                             <Col className="d-flex justify-content-center">
                                 <TextField
-                                    autoFocus
                                     label="Height"
                                     name="height"
                                     variant="outlined"
@@ -37,50 +36,50 @@ const InputScreen = ({ userData, handleInputValues }) => {
                                 />
                             </Col>
                         </Row>
-                        <Row>
-                            <Col>
-                                {data.details.map((details, innerIndex) => {
-                                    return (
-                                        <Row key={innerIndex}>
-                                            <Col className="d-flex justify-content-center">
-                                                <TextField
-                                                    label="Length"
-                                                    name="lengthValue"
-                                                    variant="outlined"
-                                                    size="small"
-                                                    type="number"
-                                                    value={details.lengthValue}
-                                                    onChange={(e) =>
-                                                        handleInputValues(
-                                                            e,
-                                                            index,
-                                                            innerIndex
-                                                        )
-                                                    }
-                                                />
-                                            </Col>
-                                            <Col className="d-flex justify-content-center">
-                                                <TextField
-                                                    label="Number"
-                                                    name="number"
-                                                    variant="outlined"
-                                                    size="small"
-                                                    type="number"
-                                                    value={details.number}
-                                                    onChange={(e) =>
-                                                        handleInputValues(
-                                                            e,
-                                                            index,
-                                                            innerIndex
-                                                        )
-                                                    }
-                                                />
-                                            </Col>
-                                        </Row>
-                                    );
-                                })}
-                            </Col>
-                        </Row>
+
+                        {data.details.map((details, innerIndex) => {
+                            return (
+                                <Row
+                                    key={innerIndex}
+                                    className="mt-3 justify-content-center"
+                                >
+                                    <Col className="d-flex" xl={5}>
+                                        <TextField
+                                            label="Length"
+                                            name="lengthValue"
+                                            variant="outlined"
+                                            size="small"
+                                            type="number"
+                                            value={details.lengthValue}
+                                            onChange={(e) =>
+                                                handleInputValues(
+                                                    e,
+                                                    index,
+                                                    innerIndex
+                                                )
+                                            }
+                                        />
+                                    </Col>
+                                    <Col className="d-flex" xl={5}>
+                                        <TextField
+                                            label="Number"
+                                            name="number"
+                                            variant="outlined"
+                                            size="small"
+                                            type="number"
+                                            value={details.number}
+                                            onChange={(e) =>
+                                                handleInputValues(
+                                                    e,
+                                                    index,
+                                                    innerIndex
+                                                )
+                                            }
+                                        />
+                                    </Col>
+                                </Row>
+                            );
+                        })}
                     </Fragment>
                 );
             })}
