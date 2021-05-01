@@ -9,7 +9,7 @@ const InputScreen = ({ userData, handleInputValues }) => {
                 return (
                     <Fragment key={index}>
                         <Row className="mt-3">
-                            <Col className="d-flex justify-content-center">
+                            <Col className="d-flex justify-content-end">
                                 <TextField
                                     label="Height"
                                     name="height"
@@ -22,7 +22,7 @@ const InputScreen = ({ userData, handleInputValues }) => {
                                     }
                                 />
                             </Col>
-                            <Col className="d-flex justify-content-center">
+                            <Col className="d-flex justify-content-start">
                                 <TextField
                                     label="Width"
                                     name="width"
@@ -43,7 +43,7 @@ const InputScreen = ({ userData, handleInputValues }) => {
                                     key={innerIndex}
                                     className="mt-3 justify-content-center"
                                 >
-                                    <Col className="d-flex" xl={5}>
+                                    <Col className="d-flex" xl={4}>
                                         <TextField
                                             label="Length"
                                             name="lengthValue"
@@ -60,7 +60,7 @@ const InputScreen = ({ userData, handleInputValues }) => {
                                             }
                                         />
                                     </Col>
-                                    <Col className="d-flex" xl={5}>
+                                    <Col className="d-flex" xl={4}>
                                         <TextField
                                             label="Number"
                                             name="number"
