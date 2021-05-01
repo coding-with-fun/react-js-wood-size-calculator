@@ -76,6 +76,7 @@ const App = () => {
                         valuesCopy[index].details.length < 1)
                 ) {
                     valuesCopy = handleAddInnerInputs(valuesCopy, index);
+                    valuesCopy = handleAddOuterInputs(valuesCopy);
                 }
             }
         } else {
@@ -95,6 +96,7 @@ const App = () => {
                     valuesCopy[index][e.target.name] = e.target.value;
                     if (!valuesCopy[index].height || !valuesCopy[index].width) {
                         valuesCopy = handleRemoveInnerInputs(valuesCopy, index);
+                        valuesCopy = handleRemoveOuterInputs(valuesCopy);
                     }
                 }
             }
