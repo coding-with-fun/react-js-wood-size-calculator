@@ -4,7 +4,7 @@ import { Col, Row } from "react-bootstrap";
 
 const InputScreen = ({ userData, handleInputValues }) => {
     return (
-        <Col xl={6}>
+        <Col xs={6}>
             {userData.map((data, index) => {
                 return (
                     <Fragment key={index}>
@@ -43,7 +43,7 @@ const InputScreen = ({ userData, handleInputValues }) => {
                                     key={innerIndex}
                                     className="mt-3 justify-content-center"
                                 >
-                                    <Col className="d-flex" xl={4}>
+                                    <Col className="d-flex" xs={4}>
                                         <TextField
                                             label="Length"
                                             name="lengthValue"
@@ -60,7 +60,7 @@ const InputScreen = ({ userData, handleInputValues }) => {
                                             }
                                         />
                                     </Col>
-                                    <Col className="d-flex" xl={4}>
+                                    <Col className="d-flex" xs={4}>
                                         <TextField
                                             label="Number"
                                             name="number"

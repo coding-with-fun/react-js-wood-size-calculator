@@ -3,6 +3,7 @@ import { Container, Row } from "react-bootstrap";
 import validator from "validator";
 import InputScreen from "./components/InputScreen";
 import lodash from "lodash";
+import CalculatedResultScreen from "./components/CalculatedResultScreen";
 
 const App = () => {
     const initialOuterState = {
@@ -107,6 +108,7 @@ const App = () => {
     return (
         <Container>
             <Row className="justify-content-center">
+                <CalculatedResultScreen userData={userData} />
                 <InputScreen
                     userData={userData}
                     handleInputValues={handleInputValues}
