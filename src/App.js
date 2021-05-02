@@ -91,7 +91,7 @@ const App = () => {
                         innerIndex !== valuesCopy[index].details.length - 1
                     ) {
                         valuesCopy = handleRemoveInnerInputs(valuesCopy, index);
-                        valuesCopy = handleRemoveOuterInputs(valuesCopy);
+                        // valuesCopy = handleRemoveOuterInputs(valuesCopy);
                     }
                 } else {
                     valuesCopy[index][e.target.name] = e.target.value;
